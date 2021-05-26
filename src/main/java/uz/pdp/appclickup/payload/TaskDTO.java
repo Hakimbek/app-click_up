@@ -30,6 +30,8 @@ public class TaskDTO {
 
     private String statusName;
 
+    private Integer order;
+
     private String statusColor;
 
     private Timestamp startedDate;

@@ -6,6 +6,7 @@ import uz.pdp.appclickup.entity.Status;
 import uz.pdp.appclickup.entity.User;
 import uz.pdp.appclickup.entity.category.Category;
 import uz.pdp.appclickup.entity.enums.StatusType;
+import uz.pdp.appclickup.entity.task.Checklist;
 import uz.pdp.appclickup.entity.task.Priority;
 import uz.pdp.appclickup.entity.task.Task;
 import uz.pdp.appclickup.entity.task.TaskUser;
@@ -32,6 +33,8 @@ public class TaskServiceImpl implements TaskService {
     TaskUserRepository taskUserRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    ChecklistRepository checklistRepository;
 
 
     /**
@@ -77,7 +80,6 @@ public class TaskServiceImpl implements TaskService {
         }
         Priority priority = optionalPriority.get();
 
-
         Task savedTask = taskRepository.save(new Task(
                 taskDTO.getName(),
                 taskDTO.getDescription(),
@@ -104,6 +106,11 @@ public class TaskServiceImpl implements TaskService {
 
         List<TaskUser> taskUsers = users.stream().map(user -> userAndTaskToTaskUser(user, savedTask)).collect(Collectors.toList());
         taskUserRepository.saveAll(taskUsers);
+
+        checklistRepository.save(new Checklist(
+                "CHECKLIST",
+                savedTask
+        ));
 
         return new ApiResponse("Task created", true);
     }
@@ -201,6 +208,9 @@ public class TaskServiceImpl implements TaskService {
 
         return new ApiResponse("Task edited", true);
     }
+
+
+
 
 
     // My methods

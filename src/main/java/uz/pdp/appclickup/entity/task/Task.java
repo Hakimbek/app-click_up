@@ -33,6 +33,8 @@ public class Task extends AbsUUIDEntity {
     @ManyToOne(optional = false)
     private Status status;
 
+    private Integer orderNum;
+
     @ManyToOne
     private Priority priority;
 
@@ -53,4 +55,19 @@ public class Task extends AbsUUIDEntity {
     private Long estimateTime;
 
     private Timestamp activeDate;
+
+    public Task(String name, String description, Category category, Status status, Priority priority, Task parentTask, Timestamp startedDate, Boolean startTimeHas, Timestamp dueDate, Boolean dueTimeHas, Long estimateTime, Timestamp activeDate) {
+        this.name = name;
+        this.description = description;
+        this.category = category;
+        this.status = status;
+        this.priority = priority;
+        this.parentTask = parentTask;
+        this.startedDate = startedDate;
+        this.startTimeHas = startTimeHas;
+        this.dueDate = dueDate;
+        this.dueTimeHas = dueTimeHas;
+        this.estimateTime = estimateTime;
+        this.activeDate = activeDate;
+    }
 }
