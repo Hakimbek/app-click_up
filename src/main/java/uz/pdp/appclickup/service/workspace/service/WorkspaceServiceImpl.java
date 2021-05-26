@@ -1,4 +1,4 @@
-package uz.pdp.appclickup.service;
+package uz.pdp.appclickup.service.workspace.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
@@ -260,76 +260,6 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     @Override
     public List<Workspace> getWorkspaces(User user) {
         return workspaceRepository.findAllByOwnerId(user.getId());
-    }
-
-
-
-    /**
-     * ADD ROLE
-     * @param id LONG
-     * @param roleDTO ROLE NAME, PERMISSION LIST
-     * @return Api Response
-     */
-    @Override
-    public ApiResponse addRole(Long id, RoleDTO roleDTO) {
-        // workspaceni oldim
-        Optional<Workspace> optionalWorkspace = workspaceRepository.findById(id);
-        if (!optionalWorkspace.isPresent()) {
-            return new ApiResponse("Workspace not found", false);
-        }
-        Workspace workspace = optionalWorkspace.get();
-
-        // shunday name li role yoqligini tekshirdim
-        if (workspaceRoleRepository.existsByName(roleDTO.getRoleName())) {
-            return new ApiResponse("Role already exist", false);
-        }
-
-        // roleni saqladim
-        WorkspaceRole savedRole = workspaceRoleRepository.save(
-                new WorkspaceRole(workspace, roleDTO.getRoleName(), null)
-        );
-
-        // permissionlarni listga yig'dim
-        List<WorkspacePermission> workspacePermissions = new ArrayList<>();
-
-        for (WorkspacePermissionName workspacePermissionName : roleDTO.getWorkspacePermissionNames()) {
-            WorkspacePermission workspacePermission = new WorkspacePermission(
-                    savedRole, workspacePermissionName
-            );
-            workspacePermissions.add(workspacePermission);
-        }
-        workspacePermissionRepository.saveAll(workspacePermissions);
-
-        return new ApiResponse("Success", true);
-    }
-
-
-    /**
-     * ADD OR REMOVE PERMISSION
-     *
-     * @param permissionDTO ROLE ID, PERMISSION LIST
-     * @return Api Response
-     */
-    @Override
-    public ApiResponse addOrRemovePermission(PermissionDTO permissionDTO) {
-        Optional<WorkspaceRole> optionalWorkspaceRole = workspaceRoleRepository.findById(permissionDTO.getRoleId());
-        if (!optionalWorkspaceRole.isPresent()) {
-            return new ApiResponse("Role not found", false);
-        }
-        WorkspaceRole workspaceRole = optionalWorkspaceRole.get();
-
-        workspacePermissionRepository.deleteAllByWorkspaceRoleId(workspaceRole.getId());
-
-        List<WorkspacePermission> workspacePermissions = new ArrayList<>();
-
-        for (WorkspacePermissionName workspacePermissionName : permissionDTO.getWorkspacePermissionNames()) {
-            WorkspacePermission workspacePermission = new WorkspacePermission(
-                    workspaceRole, workspacePermissionName
-            );
-            workspacePermissions.add(workspacePermission);
-        }
-        workspacePermissionRepository.saveAll(workspacePermissions);
-        return new ApiResponse("Success", true);
     }
 
 

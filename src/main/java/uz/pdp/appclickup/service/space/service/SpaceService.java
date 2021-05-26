@@ -1,4 +1,4 @@
-package uz.pdp.appclickup.service;
+package uz.pdp.appclickup.service.space.service;
 
 import uz.pdp.appclickup.entity.User;
 import uz.pdp.appclickup.entity.space.Space;

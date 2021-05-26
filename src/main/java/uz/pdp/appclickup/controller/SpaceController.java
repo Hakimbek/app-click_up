@@ -8,7 +8,7 @@ import uz.pdp.appclickup.entity.space.Space;
 import uz.pdp.appclickup.payload.ApiResponse;
 import uz.pdp.appclickup.payload.SpaceDTO;
 import uz.pdp.appclickup.security.CurrentUser;
-import uz.pdp.appclickup.service.SpaceService;
+import uz.pdp.appclickup.service.space.service.SpaceService;
 
 import java.util.List;
 import java.util.UUID;

@@ -9,7 +9,7 @@ import uz.pdp.appclickup.payload.ApiResponse;
 import uz.pdp.appclickup.payload.ProjectDTO;
 import uz.pdp.appclickup.payload.ProjectUserDTO;
 import uz.pdp.appclickup.security.CurrentUser;
-import uz.pdp.appclickup.service.ProjectService;
+import uz.pdp.appclickup.service.project.service.ProjectService;
 
 import java.util.List;
 import java.util.UUID;

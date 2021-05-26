@@ -1,4 +1,4 @@
-package uz.pdp.appclickup.service;
+package uz.pdp.appclickup.service.workspace.service;
 
 import uz.pdp.appclickup.entity.User;
 import uz.pdp.appclickup.entity.workspace.Workspace;
@@ -28,8 +28,4 @@ public interface WorkspaceService {
     ApiResponse joinToWorkspace(Long id, User user);
 
     List<Workspace> getWorkspaces(User user);
-
-    ApiResponse addRole(Long id, RoleDTO roleDTO);
-
-    ApiResponse addOrRemovePermission(PermissionDTO permissionDTO);
 }

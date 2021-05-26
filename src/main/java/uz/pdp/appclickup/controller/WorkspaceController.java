@@ -9,7 +9,7 @@ import uz.pdp.appclickup.entity.workspace.Workspace;
 import uz.pdp.appclickup.entity.workspace.WorkspaceUser;
 import uz.pdp.appclickup.payload.*;
 import uz.pdp.appclickup.security.CurrentUser;
-import uz.pdp.appclickup.service.WorkspaceService;
+import uz.pdp.appclickup.service.workspace.service.WorkspaceService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -99,33 +99,6 @@ public class WorkspaceController {
     public ResponseEntity<?> getWorkspaces(@CurrentUser User user) {
         List<Workspace> workspaces = workspaceService.getWorkspaces(user);
         return ResponseEntity.status(workspaces.size() != 0 ? 200 : 409).body(workspaces);
-    }
-
-
-    /**
-     * ADD ROLE
-     *
-     * @param id      LONG
-     * @param roleDTO ROLE NAME, PERMISSION LIST
-     * @return Api Response
-     */
-    @PostMapping("/addRole/{id}")
-    public ResponseEntity<?> addRole(@PathVariable Long id, @RequestBody RoleDTO roleDTO) {
-        ApiResponse apiResponse = workspaceService.addRole(id, roleDTO);
-        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
-    }
-
-
-    /**
-     * ADD OR REMOVE PERMISSION
-     *
-     * @param permissionDTO ROLE ID, PERMISSION LIST
-     * @return Api Response
-     */
-    @PutMapping("/addOrRemovePermission")
-    public ResponseEntity<?> addOrRemovePermission(@RequestBody PermissionDTO permissionDTO) {
-        ApiResponse apiResponse = workspaceService.addOrRemovePermission(permissionDTO);
-        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
 
